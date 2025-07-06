@@ -94,11 +94,13 @@
     }
 
     // 🎉 Confetti blast every time page loads
-    confetti({
-      particleCount: 150,
-      spread: 80,
-      origin: { y: 0.6 }
-    });
+   window.onload = () => {
+  confetti({
+    particleCount: 150,
+    spread: 80,
+    origin: { y: 0.6 }
+  });
+};
 
     // ⏳ Countdown to next dry day
     function getNextDryDay() {
