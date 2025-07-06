@@ -5,121 +5,129 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Is Today a Dry Day in Maharashtra?</title>
   <style>
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
 
-  h1 {
-    font-size: 32px;
-    margin-bottom: 30px;
-    color: #333;
-  }
+    h1 {
+      font-size: 32px;
+      margin-bottom: 30px;
+      color: #333;
+    }
 
-  .result {
-    font-size: 36px;
-    font-weight: bold;
-    color: white;
-    background-color: #f44336; /* red for YES */
-    padding: 25px 40px;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(5px);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-  }
+    .result {
+      font-size: 36px;
+      font-weight: bold;
+      color: white;
+      background-color: #f44336; /* red for YES */
+      padding: 25px 40px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(5px);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
 
-  .no {
-    background-color: #4CAF50; /* green for NO */
-  }
+    .no {
+      background-color: #4CAF50; /* green for NO */
+    }
 
-  .footer {
-    margin-top: 40px;
-    font-size: 14px;
-    color: #333;
-    opacity: 0.8;
-  }
+    .footer {
+      margin-top: 40px;
+      font-size: 14px;
+      color: #333;
+      opacity: 0.8;
+    }
 
-  .countdown {
-    font-size: 20px;
-    margin-top: 20px;
-    color: #222;
-    background: rgba(255, 255, 255, 0.6);
-    padding: 10px 20px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    font-weight: 500;
-  }
-</style>
-
+    .countdown {
+      font-size: 20px;
+      margin-top: 20px;
+      color: #222;
+      background: rgba(255, 255, 255, 0.6);
+      padding: 10px 20px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      font-weight: 500;
+    }
+  </style>
 </head>
 <body>
   <h1>Is Today a Dry Day in Maharashtra?</h1>
   <div id="result" class="result">Checking...</div>
   <div class="footer">Based on public dry day calendar for 2025.</div>
 
-<script>
-  const dryDays = [
-    "07-06", // Ekadashi
-    "07-10", // Guru Purnima
-    "08-15", // Independence Day
-    "08-16", // Janmashtami
-    "08-27", // Ganesh Chaturthi
-    "09-05", // Eid-e-Milad
-    "09-06", // Anant Chaturdashi
-    "10-02", // Gandhi Jayanti & Dussehra
-    "10-07", // Maharishi Valmiki Jayanti
-    "10-08", // Prohibition Week
-    "11-01", // Kartiki Ekadashi
-    "11-05", // Guru Nanak Jayanti
-    "11-24", // Guru Tegh Bahadur Shaheedi Diwas
-    "12-25"  // Christmas
-  ];
+  <script>
+    const dryDays = [
+      "07-06", // Ekadashi
+      "07-10", // Guru Purnima
+      "08-15", // Independence Day
+      "08-16", // Janmashtami
+      "08-27", // Ganesh Chaturthi
+      "09-05", // Eid-e-Milad
+      "09-06", // Anant Chaturdashi
+      "10-02", // Gandhi Jayanti & Dussehra
+      "10-07", // Maharishi Valmiki Jayanti
+      "10-08", // Prohibition Week
+      "11-01", // Kartiki Ekadashi
+      "11-05", // Guru Nanak Jayanti
+      "11-24", // Guru Tegh Bahadur Shaheedi Diwas
+      "12-25"  // Christmas
+    ];
 
-  const today = new Date();
-  const mmdd = ("0" + (today.getMonth() + 1)).slice(-2) + "-" + ("0" + today.getDate()).slice(-2);
-  const resultDiv = document.getElementById("result");
+    const today = new Date();
+    const mmdd = ("0" + (today.getMonth() + 1)).slice(-2) + "-" + ("0" + today.getDate()).slice(-2);
+    const resultDiv = document.getElementById("result");
 
-  if (dryDays.includes(mmdd)) {
-    resultDiv.textContent = "✅ Yes, today is a dry day in Maharashtra";
-  } else {
-    resultDiv.textContent = "❌ No, today is not a dry day in Maharashtra";
-    resultDiv.classList.add("no");
-  }
-
-  // 👉 Countdown to next dry day
-  function getNextDryDay() {
-    const thisYear = today.getFullYear();
-
-    const futureDryDays = dryDays
-      .map(d => new Date(`${thisYear}-${d}`))
-      .filter(date => date >= today)
-      .sort((a, b) => a - b);
-
-    if (futureDryDays.length > 0) {
-      const nextDryDate = futureDryDays[0];
-      const timeDiff = nextDryDate - today;
-      const daysLeft = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-
-      const options = { month: "long", day: "numeric" };
-      const readableDate = nextDryDate.toLocaleDateString("en-IN", options);
-
-      const countdown = document.createElement("div");
-      countdown.innerHTML = `⏳ Next dry day is in <b>${daysLeft}</b> day${daysLeft > 1 ? "s" : ""} (on <b>${readableDate}</b>)`;
-      countdown.style.marginTop = "20px";
-      countdown.classList.add("countdown");
-      document.body.appendChild(countdown);
+    if (dryDays.includes(mmdd)) {
+      resultDiv.textContent = "✅ Yes, today is a dry day in Maharashtra";
+    } else {
+      resultDiv.textContent = "❌ No, today is not a dry day in Maharashtra";
+      resultDiv.classList.add("no");
     }
-  }
 
-  getNextDryDay();
-</script>
+    // 🎉 Confetti blast every time page loads
+    confetti({
+      particleCount: 150,
+      spread: 80,
+      origin: { y: 0.6 }
+    });
+
+    // ⏳ Countdown to next dry day
+    function getNextDryDay() {
+      const thisYear = today.getFullYear();
+
+      const futureDryDays = dryDays
+        .map(d => new Date(`${thisYear}-${d}`))
+        .filter(date => date >= today)
+        .sort((a, b) => a - b);
+
+      if (futureDryDays.length > 0) {
+        const nextDryDate = futureDryDays[0];
+        const timeDiff = nextDryDate - today;
+        const daysLeft = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+
+        const options = { month: "long", day: "numeric" };
+        const readableDate = nextDryDate.toLocaleDateString("en-IN", options);
+
+        const countdown = document.createElement("div");
+        countdown.innerHTML = `⏳ Next dry day is in <b>${daysLeft}</b> day${daysLeft > 1 ? "s" : ""} (on <b>${readableDate}</b>)`;
+        countdown.classList.add("countdown");
+        document.body.appendChild(countdown);
+      }
+    }
+
+    getNextDryDay();
+  </script>
+
+  <!-- 🎊 Confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </body>
 </html>
