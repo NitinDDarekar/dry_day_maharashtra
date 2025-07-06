@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Is Today a Dry Day in Maharashtra?</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 50px;
+      background-color: #f7f7f7;
+    }
+    h1 {
+      font-size: 28px;
+    }
+    .result {
+      font-size: 36px;
+      font-weight: bold;
+      color: white;
+      background-color: #4CAF50;
+      padding: 20px;
+      border-radius: 10px;
+      display: inline-block;
+    }
+    .no {
+      background-color: #f44336;
+    }
+    .footer {
+      margin-top: 40px;
+      font-size: 14px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <h1>Is Today a Dry Day in Maharashtra?</h1>
+  <div id="result" class="result">Checking...</div>
+  <div class="footer">Based on public dry day calendar for 2025.</div>
+
+  <script>
+    const dryDays = [
+      "07-10", // Guru Purnima
+
+      "08-15", // Independence Day
+      "08-16", // Janmashtami
+      "08-27", // Ganesh Chaturthi
+
+      "09-05", // Eid-e-Milad
+      "09-06", // Anant Chaturdashi
+
+      "10-02", // Gandhi Jayanti & Dussehra
+      "10-07", // Maharishi Valmiki Jayanti
+      "10-08", // Prohibition Week
+
+      "11-01", // Kartiki Ekadashi
+      "11-05", // Guru Nanak Jayanti
+      "11-24", // Guru Tegh Bahadur Shaheedi Diwas
+
+      "12-25"  // Christmas
+    ];
+
+    const today = new Date();
+    const mmdd = ("0" + (today.getMonth() + 1)).slice(-2) + "-" + ("0" + today.getDate()).slice(-2);
+
+    const resultDiv = document.getElementById("result");
+
+    if (dryDays.includes(mmdd)) {
+      resultDiv.textContent = "✅ Yes, today is a dry day in Maharashtra";
+    } else {
+      resultDiv.textContent = "❌ No, today is not a dry day in Maharashtra";
+      resultDiv.classList.add("no");
+    }
+  </script>
+</body>
+</html>
